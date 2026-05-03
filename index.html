@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renault Radio Code</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+
+.box {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 350px;
+    margin: auto;
+}
+
+input {
+    width: 90%;
+    padding: 12px;
+    font-size: 18px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    background: #22c55e;
+    color: white;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 26px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>🔑 Renault Radio Code</h2>
+    <p>Introdu PRE-code (ex: T123)</p>
+
+    <input type="text" id="pre" maxlength="4" oninput="this.value = this.value.toUpperCase()">
+    <br>
+    <button onclick="calc()">Calculează</button>
+
+    <div class="result" id="rez"></div>
+</div>
+
+<script>
+function calc() {
+    let pre = document.getElementById("pre").value.trim();
+
+    if (!/^[A-Z][0-9]{3}$/.test(pre)) {
+        document.getElementById("rez").innerText = "Cod invalid!";
+        return;
+    }
+
+    const table = {
+        'A':1,'B':2,'C':3,'D':4,'E':5,'F':6,'G':7,'H':8,'I':9,
+        'J':1,'K':2,'L':3,'M':4,'N':5,'O':6,'P':7,'Q':8,'R':9,
+        'S':2,'T':3,'U':4,'V':5,'W':6,'X':7,'Y':8,'Z':9
+    };
+
+    let letter = pre[0];
+    let numbers = pre.substring(1);
+
+    let base = table[letter];
+    let num = parseInt(numbers);
+
+    let code = (base * 1000 + num) % 10000;
+
+    document.getElementById("rez").innerText = "Cod radio: " + code.toString().padStart(4, '0');
+}
+</script>
+
+</body>
+</html>
